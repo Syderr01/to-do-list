@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Editar Tarefa</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Tarefa</h1>
+        <!-- O formulário envia os dados para a rota de edição -->
+        <form action="{{ url_for('edit_task', task_id=task[0]) }}" method="POST">
+            <!-- Campo pré-preenchido com o título da tarefa -->
+            <input type="text" name="title" value="{{ task[1] }}" required>
+            <button type="submit">Salvar</button>
+        </form>
+        <a href="{{ url_for('index') }}" class="button">Voltar</a>
+    </div>
+</body>
+</html>
