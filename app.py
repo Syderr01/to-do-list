@@ -70,14 +70,23 @@ def complete_task(task_id):
         conn.execute("UPDATE tasks SET completed = 1 WHERE id = ?", (task_id,))
         conn.commit()
     return redirect(url_for('index'))
-
-@app.route('/delete/<int:task_id>')
-def delete_task(task_id):
-    app.logger.info(f'Excluindo tarefa ID {task_id}')
-    with sqlite3.connect(DATABASE) as conn:
-        conn.execute("DELETE FROM tasks WHERE id = ?", (task_id,))
-        conn.commit()
-    return redirect(url_for('index'))
+@app.route('/complete/<int:task_id>')
+def complete_task(task_id):
+    try:
+        with sqlite3.connect(DATABASE) as conn:
+            # Atualizar a tarefa como concluída
+            result = conn.execute("UPDATE tasks SET completed = 1 WHERE id = ?", (task_id,))
+            if result.rowcount == 0:  # Nenhuma linha foi atualizada
+                return f"Tarefa com ID {task_id} não encontrada.", 404
+            conn.commit()
+        app.logger.info(f"Tarefa ID {task_id} marcada como concluída")
+        return redirect(url_for('index'))  # Redirecionar para a página inicial
+    except sqlite3.Error as e:
+        app.logger.error(f"Erro no banco de dados: {e}")
+        return f"Erro no servidor: {e}", 500
+    except Exception as e:
+        app.logger.error(f"Erro inesperado: {e}")
+        return f"Erro no servidor: {e}", 500
 
 if __name__ == '__main__':
     app.run(debug=False)
