@@ -62,14 +62,7 @@ def edit_task(task_id):
     if not task:
         return f"Tarefa com ID {task_id} não encontrada.", 404
     return render_template('edit_task.html', task=task)
-
-@app.route('/complete/<int:task_id>')
-def complete_task(task_id):
-    app.logger.info(f'Marcando tarefa ID {task_id} como concluída')
-    with sqlite3.connect(DATABASE) as conn:
-        conn.execute("UPDATE tasks SET completed = 1 WHERE id = ?", (task_id,))
-        conn.commit()
-    return redirect(url_for('index'))
+    
 @app.route('/complete/<int:task_id>')
 def complete_task(task_id):
     try:
@@ -87,6 +80,14 @@ def complete_task(task_id):
     except Exception as e:
         app.logger.error(f"Erro inesperado: {e}")
         return f"Erro no servidor: {e}", 500
+
+@app.route('/delete/<int:task_id>')
+def delete_task(task_id):
+    app.logger.info(f'Excluindo tarefa ID {task_id}')
+    with sqlite3.connect(DATABASE) as conn:
+        conn.execute("DELETE FROM tasks WHERE id = ?", (task_id,))
+        conn.commit()
+    return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=False)
