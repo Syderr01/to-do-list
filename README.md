@@ -65,10 +65,6 @@ As tarefas são armazenadas em um banco de dados SQLite (`tasks.db`) com a segui
 - **`GET /complete/<task_id>`**: Marca uma tarefa como concluída.
 - **`GET /delete/<task_id>`**: Exclui uma tarefa.
 
-## Logs
-
-O aplicativo registra logs de cada requisição recebida e ações realizadas, como criação, edição e exclusão de tarefas. Os logs são configurados para o nível de informação (`INFO`).
-
 ## Personalização
 
 Se necessário, você pode ajustar o comportamento do aplicativo editando o arquivo `app.py`. Por exemplo, a porta do servidor pode ser alterada modificando o parâmetro `app.run()`.
