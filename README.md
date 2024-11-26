@@ -64,10 +64,6 @@ As tarefas são armazenadas em um banco de dados SQLite (`tasks.db`) com a segui
 - **`GET, POST /edit/<task_id>`**: Edição de uma tarefa existente.
 - **`GET /complete/<task_id>`**: Marca uma tarefa como concluída.
 - **`GET /delete/<task_id>`**: Exclui uma tarefa.
-
-## Personalização
-
-Se necessário, você pode ajustar o comportamento do aplicativo editando o arquivo `app.py`. Por exemplo, a porta do servidor pode ser alterada modificando o parâmetro `app.run()`.
-
+- 
 # link para o site
 • [to-do-list site](https://to-do-list-gpd9.onrender.com/)
